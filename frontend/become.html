@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Become a Hustler | HustleMap+</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700|Pacifico&display=swap" rel="stylesheet" />
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <!-- App Styles -->
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <svg width="36" height="36" viewBox="0 0 28 28" fill="none">
+                <circle cx="14" cy="14" r="14" fill="#f6e05e"/>
+                <path d="M8 18L14 8L20 18H8Z" fill="#3182ce"/>
+            </svg>
+            <div>
+                <h1>HustleMap+</h1>
+                <p class="slogan">Mapping Skills, Empowering Hustlers</p>
+            </div>
+        </div>
+        <nav class="desktop-nav">
+            <a href="index.html">Home</a>
+            <a href="categories.html">Categories</a>
+            <a href="bookings.html">My Bookings</a>
+            <a href="Inbox.html">Inbox</a>
+            <a href="Become.html" id="become-hustler-desktop">Become a Hustler</a>
+        </nav>
+        <button class="hamburger" aria-label="Open menu" tabindex="0">
+            <span></span><span></span><span></span>
+        </button>
+        <nav id="mobile-menu" class="mobile-menu">
+            <a href="index.html">Home</a>
+            <a href="categories.html">Categories</a>
+            <a href="bookings.html">My Bookings</a>
+            <a href="Inbox.html">Inbox</a>
+            <a href="Become.html" id="become-hustler-mobile">Become a Hustler</a>
+        </nav>
+        <style>
+            header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0 24px;
+                height: 64px;
+                box-shadow: 0 2px 8px rgba(49,130,206,0.06);
+                position: relative;
+                z-index: 200;
+            }
+            .logo {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+            }
+            .logo h1 {
+                font-family: 'Pacifico', cursive;
+                font-size: 1.5em;
+                margin: 0;
+                color: #3182ce;
+            }
+            .slogan {
+                font-size: 0.9em;
+                color: #888;
+                margin: 0;
+            }
+            .desktop-nav {
+                display: flex;
+                gap: 18px;
+                align-items: center;
+            }
+            .desktop-nav a {
+                color: #222;
+                text-decoration: none;
+                font-weight: 500;
+                padding: 6px 10px;
+                border-radius: 6px;
+                transition: background 0.15s;
+            }
+            .desktop-nav a:hover {
+                background: #8338ec;
+                color: #222;
+            }
+            .hamburger {
+                display: none;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                width: 44px;
+                height: 44px;
+                background: none;
+                border: none;
+                cursor: pointer;
+                margin-left: 16px;
+            }
+            .hamburger span {
+                display: block;
+                width: 26px;
+                height: 3px;
+                background: #3182ce;
+                margin: 4px 0;
+                border-radius: 2px;
+                transition: 0.2s;
+            }
+            .mobile-menu {
+                display: none;
+                position: absolute;
+                top: 64px;
+                right: 0;
+                left: 0;
+                background: #fff;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+                z-index: 100;
+                flex-direction: column;
+                padding: 12px 0;
+            }
+            .mobile-menu.open {
+                display: flex;
+            }
+            .mobile-menu a {
+                color: #222;
+                text-decoration: none;
+                padding: 12px 24px;
+                font-size: 1.1em;
+                border-bottom: 1px solid #f0f0f0;
+            }
+            .mobile-menu a:last-child {
+                border-bottom: none;
+            }
+            @media (max-width: 900px) {
+                .desktop-nav {
+                    display: none;
+                }
+                .hamburger {
+                    display: flex;
+                }
+            }
+            @media (min-width: 901px) {
+                .mobile-menu {
+                    display: none !important;
+                }
+            }
+        </style>
+        <script>
+            const hamburger = document.querySelector('.hamburger');
+            const mobileMenu = document.getElementById('mobile-menu');
+            hamburger.addEventListener('click', () => {
+                mobileMenu.classList.toggle('open');
+            });
+            hamburger.addEventListener('keydown', e => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    mobileMenu.classList.toggle('open');
+                }
+            });
+            document.querySelectorAll('.mobile-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.remove('open');
+                });
+            });
+            document.addEventListener('click', function(e) {
+                if (!mobileMenu.contains(e.target) && !hamburger.contains(e.target)) {
+                    mobileMenu.classList.remove('open');
+                }
+            });
+        </script>
+    </header>
+
+    <div class="container">
+        <aside class="sidebar">
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="🔍 Find a service or fundi..." aria-label="Search providers" disabled />
+            </div>
+            <div class="categories">
+                <h2>📂 Categories</h2>
+                <div class="category-list" id="categoryList">
+                    <div class="category-item active" data-category="All">All</div>
+                    <div class="category-item" data-category="Laundry">🧺 Laundry</div>
+                    <div class="category-item" data-category="Welding">🔧 Welding</div>
+                    <div class="category-item" data-category="Hair & Beauty">💇 Hair & Beauty</div>
+                    <div class="category-item" data-category="Delivery">📦 Delivery</div>
+                    <div class="category-item" data-category="Cleaning">🧹 Cleaning</div>
+                    <div class="category-item" data-category="Electronics">💻 Electronics</div>
+                    <div class="category-item" data-category="Tutoring">🧠 Tutoring</div>
+                    <div class="category-item" data-category="Repairs">🛠 Repairs</div>
+                </div>
+            </div>
+            <div class="provider-list" id="providerList">
+                <div class="no-results">Ready to join HustleMap+? Fill the form!</div>
+            </div>
+        </aside>
+
+        <section class="map-section">
+            <h2>🚀 Become a Hustler</h2>
+        <form id="becomeHustlerForm" class="become-hustler-form" autocomplete="off" novalidate>
+            <label>
+                <span>Full Name</span>
+                <input type="text" name="name" required placeholder="e.g. Jane Wanjiku" maxlength="60" pattern="^[A-Za-z\s\.'-]{2,}$" />
+            </label>
+            <label>
+                <span>Phone Number</span>
+                <input type="tel" name="phone" required placeholder="+2547XXXXXXXX" pattern="^\+2547\d{8}$" maxlength="13" />
+            </label>
+            <label>
+                <span>Category</span>
+                <select name="category" required>
+                    <option value="">Select category</option>
+                    <option value="Laundry">🧺 Laundry</option>
+                    <option value="Welding">🔧 Welding</option>
+                    <option value="Hair & Beauty">💇 Hair & Beauty</option>
+                    <option value="Delivery">📦 Delivery</option>
+                    <option value="Cleaning">🧹 Cleaning</option>
+                    <option value="Electronics">💻 Electronics</option>
+                    <option value="Tutoring">🧠 Tutoring</option>
+                    <option value="Repairs">🛠 Repairs</option>
+                </select>
+            </label>
+            <label>
+                <span>Short Bio</span>
+                <textarea name="bio" required maxlength="120" placeholder="Describe your skills in 120 characters"></textarea>
+            </label>
+            <label>
+                <span>Your Rate (Ksh)</span>
+                <input type="number" name="price" required min="100" max="100000" step="50" placeholder="e.g. 800" />
+            </label>
+            <label>
+                <span>Location (optional)</span>
+                <input type="text" name="location" maxlength="40" placeholder="e.g. Nairobi West" />
+            </label>
+            <label>
+                <span>Upload Profile Photo (optional)</span>
+                <input type="file" name="photo" accept="image/*" />
+            </label>
+            <label>
+                <span>Available Days</span>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" name="days" value="Mon"> Mon</label>
+                    <label><input type="checkbox" name="days" value="Tue"> Tue</label>
+                    <label><input type="checkbox" name="days" value="Wed"> Wed</label>
+                    <label><input type="checkbox" name="days" value="Thu"> Thu</label>
+                    <label><input type="checkbox" name="days" value="Fri"> Fri</label>
+                    <label><input type="checkbox" name="days" value="Sat"> Sat</label>
+                    <label><input type="checkbox" name="days" value="Sun"> Sun</label>
+                </div>
+            </label>
+            <label>
+                <span>Preferred Contact Method</span>
+                <select name="contact_method" required>
+                    <option value="">Select method</option>
+                    <option value="Phone">Phone Call</option>
+                    <option value="WhatsApp">WhatsApp</option>
+                    <option value="SMS">SMS</option>
+                </select>
+            </label>
+            <button type="submit" class="book-btn">Submit Application</button>
+            <div id="formMessage" style="margin-top:1em;" aria-live="polite"></div>
+        </form>
+        <style>
+        .become-hustler-form {
+            background: #fffbe7;
+            border-radius: 1.2em;
+            box-shadow: 0 2px 16px rgba(49,130,206,0.08);
+            padding: 2em 2.5em 1.5em 2.5em;
+            max-width: 480px;
+            margin: 2em auto 1em auto;
+            font-family: 'Roboto', Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2em;
+        }
+        .become-hustler-form label {
+            display: flex;
+            flex-direction: column;
+            font-weight: 500;
+            color: #2d3748;
+            gap: 0.3em;
+        }
+        .become-hustler-form input[type="text"],
+        .become-hustler-form input[type="tel"],
+        .become-hustler-form input[type="number"],
+        .become-hustler-form input[type="file"],
+        .become-hustler-form textarea,
+        .become-hustler-form select {
+            border: 1.5px solid #cbd5e1;
+            border-radius: 0.5em;
+            padding: 0.7em 1em;
+            font-size: 1em;
+            background: #fff;
+            transition: border 0.2s;
+            margin-top: 0.1em;
+        }
+        .become-hustler-form input:focus,
+        .become-hustler-form textarea:focus,
+        .become-hustler-form select:focus {
+            border-color: #3182ce;
+            outline: none;
+        }
+        .become-hustler-form textarea {
+            min-height: 60px;
+            resize: vertical;
+        }
+        .become-hustler-form .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.7em 1.2em;
+            margin-top: 0.4em;
+        }
+        .become-hustler-form .checkbox-group label {
+            font-weight: 400;
+            color: #4a5568;
+            flex: 0 0 auto;
+            font-size: 0.98em;
+        }
+        .become-hustler-form input[type="checkbox"] {
+            accent-color: #3182ce;
+            margin-right: 0.4em;
+        }
+        .become-hustler-form .book-btn {
+            background: linear-gradient(90deg, rgb(0, 148, 240) 60%, #1955c4 100%, rgb(194, 1, 194));
+            color: #222;
+            font-weight: 700;
+            border: none;
+            border-radius: 0.6em;
+            padding: 0.9em 0;
+            font-size: 1.1em;
+            margin-top: 0.5em;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(49,130,206,0.07);
+            transition: background 0.2s, color 0.2s;
+        }
+        .become-hustler-form .book-btn:hover,
+        .become-hustler-form .book-btn:focus {
+            background: linear-gradient(90deg, #3182ce 60%, #f6e05e 100%);
+            color: #fff;
+        }
+        #formMessage {
+            min-height: 1.5em;
+            font-size: 1em;
+            color: #3182ce;
+            font-weight: 500;
+            text-align: center;
+        }
+        @media (max-width: 600px) {
+            .become-hustler-form {
+                padding: 1.2em 0.7em 1em 0.7em;
+                max-width: 98vw;
+            }
+        }
+        </style>
+            <div class="how-it-works">
+                <strong>Why Join HustleMap+?</strong>
+                <ol>
+                    <li>Get discovered by clients near you</li>
+                    <li>Showcase your skills and ratings</li>
+                    <li>Receive bookings & payments securely</li>
+                </ol>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Hamburger menu toggle
+        (function() {
+            const hamburger = document.querySelector('.hamburger');
+            const mobileMenu = document.getElementById('mobile-menu');
+            hamburger.addEventListener('click', () => {
+                const expanded = hamburger.getAttribute('aria-expanded') === 'true';
+                hamburger.setAttribute('aria-expanded', !expanded);
+                mobileMenu.hidden = expanded;
+            });
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.setAttribute('aria-expanded', 'false');
+                    mobileMenu.hidden = true;
+                });
+            });
+        })();
+
+        // Become a Hustler navigation
+        function openBecomeHustler() {
+            window.location.href = "become.html";
+        }
+        document.getElementById('become-hustler-desktop').addEventListener('click', function(e) {
+            e.preventDefault();
+            openBecomeHustler();
+        });
+        document.getElementById('become-hustler-mobile').addEventListener('click', function(e) {
+            e.preventDefault();
+            openBecomeHustler();
+        });
+
+        // Form validation and submission
+        document.getElementById('becomeHustlerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const form = e.target;
+            const message = document.getElementById('formMessage');
+            message.textContent = "";
+
+            // Simple client-side validation
+            const name = form.name.value.trim();
+            const phone = form.phone.value.trim();
+            const category = form.category.value;
+            const bio = form.bio.value.trim();
+            const price = form.price.value.trim();
+
+            if (!/^[A-Za-z\s\.'-]{2,}$/.test(name)) {
+                message.textContent = "Please enter a valid name.";
+                form.name.focus();
+                return;
+            }
+            if (!/^\+2547\d{8}$/.test(phone)) {
+                message.textContent = "Please enter a valid Kenyan phone number (e.g. +2547XXXXXXXX).";
+                form.phone.focus();
+                return;
+            }
+            if (!category) {
+                message.textContent = "Please select a category.";
+                form.category.focus();
+                return;
+            }
+            if (bio.length < 10) {
+                message.textContent = "Please provide a short bio (at least 10 characters).";
+                form.bio.focus();
+                return;
+            }
+            if (isNaN(price) || price < 100 || price > 100000) {
+                message.textContent = "Please enter a realistic rate between 100 and 100000 Ksh.";
+                form.price.focus();
+                return;
+            }
+
+            message.textContent = "Submitting...";
+            form.querySelector('button[type="submit"]').disabled = true;
+
+            // Simulate async submission
+            setTimeout(() => {
+                message.textContent = "Thank you! Your application has been received. We'll review and contact you soon.";
+                form.reset();
+                form.querySelector('button[type="submit"]').disabled = false;
+            }, 1200);
+        });
+    </script>
+</body>
+</html>

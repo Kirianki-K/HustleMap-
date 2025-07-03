@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HustleMap+ Chats</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel ="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+    <style>
+        body {
+            background: #fafbfc;
+            font-family: 'Roboto', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .chat-container {
+            max-width: 420px;
+            margin: 40px auto;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+        .chat-header {
+            background: #2563eb;
+            color: #fff;
+            padding: 18px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .chat-header svg {
+            background: #fff;
+            border-radius: 50%;
+            padding: 4px;
+        }
+        .chat-header .title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .chats-list {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+        .chat-item {
+            display: flex;
+            align-items: center;
+            padding: 16px 18px;
+            border-bottom: 1px solid #f1f5f9;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+        .chat-item:hover {
+            background: #f3f6fa;
+        }
+        .avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #e0e7ef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #2563eb;
+            margin-right: 14px;
+            flex-shrink: 0;
+        }
+        .chat-info {
+            flex: 1;
+            min-width: 0;
+        }
+        .chat-name {
+            font-weight: 600;
+            font-size: 1.07rem;
+            color: #222;
+            margin-bottom: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .chat-last {
+            color: #4b5563;
+            font-size: 0.98rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .chat-meta {
+            text-align: right;
+            margin-left: 10px;
+            min-width: 60px;
+        }
+        .chat-time {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            margin-bottom: 4px;
+            display: block;
+        }
+        .chat-unread {
+            background: #2563eb;
+            color: #fff;
+            font-size: 0.8rem;
+            border-radius: 12px;
+            padding: 2px 8px;
+            display: inline-block;
+            min-width: 22px;
+            text-align: center;
+        }
+        @media (max-width: 500px) {
+            .chat-container {
+                border-radius: 0;
+                margin: 0;
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+      <header>
+        <div class="logo">
+            <svg width="36" height="36" viewBox="0 0 28 28" fill="none">
+                <circle cx="14" cy="14" r="14" fill="#f6e05e"/>
+                <path d="M8 18L14 8L20 18H8Z" fill="#3182ce"/>
+            </svg>
+            <div>
+                <h1>HustleMap+</h1>
+                <p class="slogan">Mapping Skills, Empowering Hustlers</p>
+            </div>
+        </div>
+        <nav class="desktop-nav">
+            <a href="index.html">Home</a>
+            <a href="categories.html">Categories</a>
+            <a href="bookings.html">My Bookings</a>
+            <a href="Inbox.html">Inbox</a>
+            <a href="Become.html" id="become-hustler-desktop">Become a Hustler</a>
+           
+        </nav>
+        <button class="hamburger" aria-label="Open menu" tabindex="0">
+            <span></span><span></span><span></span>
+        </button>
+        <nav id="mobile-menu" class="mobile-menu">
+            <a href="index.html">Home</a>
+            <a href="categories.html">Categories</a>
+            <a href="bookings.html">My Bookings</a>
+            <a href="Inbox.html">Inbox</a>
+            <a href="Become.html" id="become-hustler-mobile">Become a Hustler</a>
+        </nav>
+        <style>
+            header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0 24px;
+                height: 64px;
+                box-shadow: 0 2px 8px rgba(49,130,206,0.06);
+                position: relative;
+                z-index: 200;
+            }
+            .logo {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+            }
+            .logo h1 {
+                font-family: 'Pacifico', cursive;
+                font-size: 1.5em;
+                margin: 0;
+                color: #3182ce;
+            }
+            .slogan {
+                font-size: 0.9em;
+                color: #888;
+                margin: 0;
+            }
+            .desktop-nav {
+                display: flex;
+                gap: 18px;
+                align-items: center;
+            }
+            .desktop-nav a {
+                color: #222;
+                text-decoration: none;
+                font-weight: 500;
+                padding: 6px 10px;
+                border-radius: 6px;
+                transition: background 0.15s;
+            }
+            .desktop-nav a:hover {
+                background: #8338ec;
+                color: #222;
+            }
+            .hamburger {
+                display: none;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                width: 44px;
+                height: 44px;
+                background: none;
+                border: none;
+                cursor: pointer;
+                margin-left: 16px;
+            }
+            .hamburger span {
+                display: block;
+                width: 26px;
+                height: 3px;
+                background: #3182ce;
+                margin: 4px 0;
+                border-radius: 2px;
+                transition: 0.2s;
+            }
+            .mobile-menu {
+                display: none;
+                position: absolute;
+                top: 64px;
+                right: 0;
+                left: 0;
+                background: #fff;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+                z-index: 100;
+                flex-direction: column;
+                padding: 12px 0;
+            }
+            .mobile-menu.open {
+                display: flex;
+            }
+            .mobile-menu a {
+                color: #222;
+                text-decoration: none;
+                padding: 12px 24px;
+                font-size: 1.1em;
+                border-bottom: 1px solid #f0f0f0;
+            }
+            .mobile-menu a:last-child {
+                border-bottom: none;
+            }
+            @media (max-width: 900px) {
+                .desktop-nav {
+                    display: none;
+                }
+                .hamburger {
+                    display: flex;
+                }
+            }
+            @media (min-width: 901px) {
+                .mobile-menu {
+                    display: none !important;
+                }
+            }
+        </style>
+        <script>
+            const hamburger = document.querySelector('.hamburger');
+            const mobileMenu = document.getElementById('mobile-menu');
+            hamburger.addEventListener('click', () => {
+                mobileMenu.classList.toggle('open');
+            });
+            hamburger.addEventListener('keydown', e => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    mobileMenu.classList.toggle('open');
+                }
+            });
+            document.querySelectorAll('.mobile-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.remove('open');
+                });
+            });
+            document.addEventListener('click', function(e) {
+                if (!mobileMenu.contains(e.target) && !hamburger.contains(e.target)) {
+                    mobileMenu.classList.remove('open');
+                }
+            });
+        </script>
+    </header>
+    <div class="chat-container">
+        <div class="chat-header">
+            <svg width="32" height="32" viewBox="0 0 28 28" fill="none">
+                <circle cx="14" cy="14" r="14" fill="#f6e05e"/>
+                <path d="M8 18L14 8L20 18H8Z" fill="#3182ce"/>
+            </svg>
+            <span class="title">Inbox</span>
+        </div>
+        <ul class="chats-list">
+            <li class="chat-item">
+                <div class="avatar">WM</div>
+                <div class="chat-info">
+                    <div class="chat-name">Wanjiku Mwangi</div>
+                    <div class="chat-last">Niko area, naweza kuja kesho 8am kusafisha?</div>
+                </div>
+                <div class="chat-meta">
+                    <span class="chat-time">09:12</span>
+                    <span class="chat-unread">2</span>
+                </div>
+            </li>
+            <li class="chat-item">
+                <div class="avatar">OK</div>
+                <div class="chat-info">
+                    <div class="chat-name">Otieno Ouma</div>
+                    <div class="chat-last">Job ya welding imeisha, unaweza kuangalia leo?</div>
+                </div>
+                <div class="chat-meta">
+                    <span class="chat-time">08:47</span>
+                </div>
+            </li>
+            <li class="chat-item">
+                <div class="avatar">AH</div>
+                <div class="chat-info">
+                    <div class="chat-name">Amina Hassan</div>
+                    <div class="chat-last">Asante kwa booking! Nitafika 2pm for hair styling.</div>
+                </div>
+                <div class="chat-meta">
+                    <span class="chat-time">Yesterday</span>
+                </div>
+            </li>
+            <li class="chat-item">
+                <div class="avatar">JK</div>
+                <div class="chat-info">
+                    <div class="chat-name">Jake Kimani</div>
+                    <div class="chat-last">Parcel delivered, feedback appreciated 🙏</div>
+                </div>
+                <div class="chat-meta">
+                    <span class="chat-time">Yesterday</span>
+                    <span class="chat-unread">1</span>
+                </div>
+            </li>
+            <li class="chat-item">
+                <div class="avatar">VK</div>
+                <div class="chat-info">
+                    <div class="chat-name">Victor Otieno</div>
+                    <div class="chat-last">Nimefix sink, kindly confirm if iko sawa.</div>
+                </div>
+                <div class="chat-meta">
+                    <span class="chat-time">Mon</span>
+                </div>
+            </li>
+            <li class="chat-item">
+                <div class="avatar">EM</div>
+                <div class="chat-info">
+                    <div class="chat-name">Eva Mutheu</div>
+                    <div class="chat-last">Tutoring session leo 5pm, sawa?</div>
+                </div>
+                <div class="chat-meta">
+                    <span class="chat-time">Mon</span>
+                </div>
+            </li>
+            <li class="chat-item">
+                <div class="avatar">DN</div>
+                <div class="chat-info">
+                    <div class="chat-name">Dina Wambui</div>
+                    <div class="chat-last">Catering order received, tutaonana Saturday.</div>
+                </div>
+                <div class="chat-meta">
+                    <span class="chat-time">Sun</span>
+                </div>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>
