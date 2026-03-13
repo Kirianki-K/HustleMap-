@@ -16,8 +16,8 @@ app.post('/bookings', (req, res) => {
         booking: booking
     });
 });
-//Fake Hustlers data
-const hustlers=[
+//Fake Helpers data
+const helpers=[
     {
         id:1,
         name:"Mary Mwende",
@@ -42,11 +42,11 @@ const hustlers=[
 ]
 //Test route
 app.get('/', (req, res) => {
-  res.send('Hello from HustleMapPlus backend!');
+  res.send('Hello from Skillspotter backend!');
 });
-//Send list of hustlers
-app.get('/hustlers', (req, res) => {
-  res.json(hustlers);
+//Send list of helpers
+app.get('/helpers', (req, res) => {
+  res.json(helpers);
 });
 //Show all bookings(all or filtered by user)
 app.get('/bookings', (req, res) => {

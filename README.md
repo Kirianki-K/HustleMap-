@@ -1,8 +1,8 @@
-# 🌍 HustleMap+ — Mapping Skills, Empowering Hustlers
+# 🌍 Skillspotter — Mapping Skills, Empowering Helpers
 
-*HustleMap+* is a modern web app that connects users with trusted, local service providers — known fondly as hustlers. Whether you need a welder, a tutor, a cleaner, or a makeup artist, HustleMap+ helps you *find, book, and review* them in just a few clicks.
+*Skillspotter* is a modern web app that connects users with trusted, local service providers — known fondly as helpers. Whether you need a welder, a tutor, a cleaner, or a makeup artist, Skillspotter helps you *find, book, and review* them in just a few clicks.
 
-> 💡 “If someone’s got a hustle, we help you map it.”
+> 💡 “If someone’s got a skill, we help you spot it.”
 
 This project was built for a hackathon, and I completed the frontend and backend in under 48 hours — including learning backend development, implementing RESTful routes, and connecting the frontend to the server. It's a personal project I’m really proud of.
 
@@ -10,7 +10,7 @@ This project was built for a hackathon, and I completed the frontend and backend
 
 ## ✨ Features
 
-- 🔍 Browse hustlers by category (e.g. Repairs, Beauty, Welding)
+- 🔍 Browse helpers by category (e.g. Repairs, Beauty, Welding)
 - 📆 View your bookings with status (In Progress, Completed, Pending)
 - 📝 Leave reviews for completed services
 - ❌ Cancel upcoming bookings
@@ -23,7 +23,7 @@ This project was built for a hackathon, and I completed the frontend and backend
 ## 📁 Folder Structure
 
 ```bash
-hustlemapplus/
+skillspotter/
 ├── frontend/       # HTML, CSS, JavaScript UI
 │   ├── index.html
 │   ├── bookings.html
@@ -62,7 +62,8 @@ Optional Integration: Supabase (future-ready)
 
 1. Clone the repository:
 ``` Bash
-git clone https://github.com/yourusername/hustlemapplus.gitcd hustlemapplus
+git clone https://github.com/yourusername/skillspotter.git
+cd skillspotter
 ```
 
 2. Install backend dependencies:
@@ -114,11 +115,11 @@ Make sure the backend is running at http://localhost:3000
 
 📽 Watch the Walkthrough
 
-In this short demo, I walk through how HustleMap+ works:
+In this short demo, I walk through how Skillspotter works:
 
 Browsing categories
 
-Booking a hustler
+Booking a helper
 
 Reviewing a service
 
@@ -134,11 +135,11 @@ What makes this app special
 
 ---
 
-# 🔥 Why I Built HustleMap+
+# 🔥 Why I Built Skillspotter
 
-I come from a place where hustling is a way of life. Everyone is skilled at something — welding, cleaning, tutoring, repairing phones — but they often lack visibility. HustleMap+ was born out of that reality:
+I come from a place where everyone is skilled at something — welding, cleaning, tutoring, repairing phones — but they often lack visibility. Skillspotter was born out of that reality:
 
-> "How do you find good help near you, and how can hustlers get more gigs?"
+> "How do you find good help near you, and how can helpers get more gigs?"
 
 
 
@@ -153,7 +154,7 @@ Supabase or Firebase integration for real database support
 
 Auth system (sign up/login)
 
-Hustler dashboards for profile & earnings
+Helper dashboards for profile & earnings
 
 Mobile PWA support
 
@@ -187,7 +188,7 @@ This project is licensed under the MIT License — feel free to use, remix, or b
 
 # 🙏 Acknowledgments
 
-The local hustlers who inspired this project
+The local helpers who inspired this project
 
 My mentors and peers who helped me debug late into the night
 
@@ -199,7 +200,7 @@ Every beginner who’s ever thought, “I don’t know how to start.” Just sta
 
 ---
 
-> 💬 “The hustle is real. So is the map. Let’s get you connected.”
+> 💬 “The skill is real. So is the spot. Let’s get you connected.”
 
 
 
