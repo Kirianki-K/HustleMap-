@@ -126,10 +126,12 @@ const ProviderDetailPage = () => {
                             💬 Message
                         </button>
                         {provider.preferredContactMethod && (
-                            <div className="flex-1 bg-gray-50 border border-gray-200 rounded-xl py-3 px-4 flex items-center justify-center gap-2 text-gray-700 font-semibold">
-                                <span>{CONTACT_ICONS[provider.preferredContactMethod] || '📬'}</span>
-                                Prefers {provider.preferredContactMethod}
-                            </div>
+                            <a href="https://wa.me/+254700397976" target="_blank" rel="noopener" className="flex-1 bg-gray-50 border border-gray-200 rounded-xl py-3 px-4 flex items-center justify-center gap-2 text-gray-700 font-semibold">
+                                <div>
+                                    <span>{CONTACT_ICONS[provider.preferredContactMethod] || '📬'}</span>
+                                    Prefers {provider.preferredContactMethod}
+                                </div>
+                            </a>
                         )}
                     </div>
                 </div>
