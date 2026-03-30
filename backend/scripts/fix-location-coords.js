@@ -7,9 +7,10 @@
  */
 require('dotenv').config({ path: require('path').join(__dirname, '../.env') });
 const mongoose = require('mongoose');
+const connectDB = require('../config/db');
 
 async function run() {
-    await mongoose.connect(process.env.MONGO_URI);
+    await connectDB();
     console.log('Connected to MongoDB');
 
     // Remove the invalid locationCoords sub-doc from affected documents
