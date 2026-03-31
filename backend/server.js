@@ -43,9 +43,10 @@ app.use(errorHandler);
 // ── Socket.io ───────────────────────────────────────────────────────────────
 initSocket(server);
 
+const port = process.env.PORT || 5000;
 // ── Start ────────────────────────────────────────────────────────────────────
 connectDB().then(() => {
-    server.listen(process.env.PORT, () => console.log(`Server running on port ${process.env.PORT} (HTTP + WebSocket)`));
+    server.listen(port, () => console.log(`Server running on port ${port} (HTTP + WebSocket)`));
 }).catch((err) => {
     console.error('MongoDB connection error:', err);
     process.exit(1);
